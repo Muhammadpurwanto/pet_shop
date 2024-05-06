@@ -3,7 +3,7 @@
 <?= $this->section('content'); ?>
 
 
-    <div class="container mt-3">
+    <div class="container mt-3">        
         <?php if(session()->getFlashdata('pesan')): ?>
             <div class="alert alert-primary" role="alert">
                 <?= session()->getFlashdata('pesan'); ?>

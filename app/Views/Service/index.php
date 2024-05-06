@@ -7,16 +7,15 @@
         <div class="row row-cols-1 row-cols-md-3 g-4">
             <?php foreach($services as $service): ?>
             <div class="col">
-                <a href="/products/index/<?= $service['id']; ?>" class="btn active">
-                    <div class="card h-100">
+                    <div class="card border-warning mb-3" style="max-width: 18rem;">
                         <img src="/img/<?= $service['image']; ?>" class="card-img-top" alt="...">
-                        <div class="card-body">
-                            <h5 class="card-title"><?= $service['name']; ?></h5>
-                            <p class="card-text">Harga :<?= $service['description']; ?></p>
-                            <p class="card-text">Harga :<?= $service['price']; ?></p>
+                    <h5 class="card-title card-header text-center"><?= $service['name']; ?></h5>
+                        <div class="card-body text-center">
+                            <p class="card-text "><?= $service['description']; ?></p>
+                            <h5 class="card-title card-header">Rp. <?= $service['price']; ?></h5>
+                            <a href="" class="btn btn-outline-warning mt-3 mx-auto">Booking</a>
                         </div>
                     </div>
-                </a>
             </div>
             <?php endforeach; ?>
            

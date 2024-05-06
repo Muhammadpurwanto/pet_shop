@@ -1,10 +1,15 @@
-<?= $this->extend('layout/template_active'); ?>
+<?= $this->extend('admin/template/template'); ?>
 
 <?= $this->section('content'); ?>
 
 <?= $this->include('admin/template/category'); ?>
 
         <div class="col-10">
+        <?php if(session()->getFlashdata('pesan')): ?>
+            <div class="alert alert-primary" role="alert">
+                <?= session()->getFlashdata('pesan'); ?>
+            </div>
+        <?php endif; ?>
             <h1 class="mb-3">Selamat Datang Admin</h1>
             <div class="row row-cols-1 row-cols-md-3 g-4">
                 <div class="col">
@@ -54,5 +59,6 @@
                 </div>
             </div>
         </div>
+    </div>
 
 <?= $this->endSection(); ?>

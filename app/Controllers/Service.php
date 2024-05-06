@@ -5,12 +5,19 @@ use App\Models\ServiceModel;
 
 class Service extends BaseController
 {
+    protected Sessions $session;
+
+    public function __construct()
+    {
+        $this->session = new Sessions();
+    }
     public function index(): string
     {
         $serviceModel = new ServiceModel();
         $services = $serviceModel->findAll();
         $data = [
             'title' => 'Home|index',
+            'user' => $this->session->currentUser(),
             'services' => $services
         ];
         return view('service/index.php', $data);

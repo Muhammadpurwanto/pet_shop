@@ -6,9 +6,11 @@ use App\Models\ProductsModel;
 class Products extends BaseController
 {
     protected ProductsModel $productsModel;
+    protected Sessions $session;
     public function __construct()
     {
-        $this->productsModel = new ProductsModel();
+        $this->productsModel = new ProductsModel();   
+        $this->session = new Sessions();     
     }
     public function index($id_categories = false)
     {        
@@ -20,7 +22,8 @@ class Products extends BaseController
         }
         $data = [
             'title' => 'Product|index',
-            'products' => $products
+            'products' => $products,
+            'user' => $this->session->currentUser()
         ];
         // dd($data);
         return view('products/index.php', $data);
@@ -32,26 +35,12 @@ class Products extends BaseController
         $product = $this->productsModel->find($id);
         $data = [
             'title' => 'Product|detail',
-            'product' => $product
+            'product' => $product,
+            'user' => $this->session->currentUser()
         ];
         return view('products/detail.php', $data);
     }
-    public function save()
-    {
-        $data = [
-            'id' => $this->request->getVar('id'),
-            'name' => $this->request->getVar('name'),
-            'description' => $this->request->getVar('description'),
-            'quantity' => $this->request->getVar('quantity'),
-            'price' => $this->request->getVar('price'),
-            'id_categories' => $this->request->getVar('category'),
-            'image' => $this->request->getVar('image'),
-        ];
-        $this->productsModel->save($data);
 
-        session()->setFlashdata('pesan','Data Berhasil Ditambahkan.');
-        return redirect()->to('/admin/products');
-    }
     public function update()
     {
     

@@ -7,5 +7,5 @@ use CodeIgniter\Model;
 class SessionsModel extends Model
 {
     protected $table = 'sessions';
-    protected $allowedFields = ['id', 'id_user'];
+    protected $allowedFields = ['id', 'id_users'];
 }

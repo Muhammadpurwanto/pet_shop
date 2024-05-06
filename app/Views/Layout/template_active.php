@@ -5,25 +5,41 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title><?= $title; ?></title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <script src="https://unpkg.com/feather-icons"></script>
   </head>
   <body>
     <nav class="navbar bg-body-tertiary">
         <div class="container-fluid">
         <a class="navbar-brand" href="/">
-        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-house-door" viewBox="0 0 16 16">
-          <path d="M8.354 1.146a.5.5 0 0 0-.708 0l-6 6A.5.5 0 0 0 1.5 7.5v7a.5.5 0 0 0 .5.5h4.5a.5.5 0 0 0 .5-.5v-4h2v4a.5.5 0 0 0 .5.5H14a.5.5 0 0 0 .5-.5v-7a.5.5 0 0 0-.146-.354L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293zM2.5 14V7.707l5.5-5.5 5.5 5.5V14H10v-4a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5v4z"/>
-        </svg>
-        <span class="navbar-brand ms-3 h1">Hallo Muhammad</span>
-          
+          <i data-feather="home"></i>
+          <span class="navbar-brand ms-3 h1">Hallo <?= $user['name']; ?></span>          
         </a>
-            <a href="/users/akun" class="btn btn-outline-secondary justify-content-end me-3" type="button">Akun</a>
+
+        
+        <?php if(!isset($akun)){ ?>
+          <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+            <a class="navbar-brand position-relative me-5" href="/">
+              <i data-feather="shopping-cart"></i> 
+              <span class="position-absolute top-0 start-100 translate-small badge rounded-pill bg-danger">
+                99+
+                <span class="visually-hidden">unread messages</span>
+              </span>
+            </a>
+            <a href="/users/akun" class="me-3" type="button">
+              <img src="/img/<?= $user['image']; ?>" class="rounded-circle" alt="..." width="30"> 
+              </a> 
+              
+          </div>
+          <?php }else{ ?>
+            <a href="/users/logout" class="btn btn-danger justify-content-end me-3" type="button">Logout</a>
+          <?php } ?>
         </div>
     </nav>
 
     <?= $this->renderSection('content'); ?>
         
     <nav class="navbar bg-body-secondary mt-3">
-        <div class="container">
+        <div class="container-fluid">
           <ul class="nav flex-column">
             <li class="nav-item">
               <a class="nav-link active" aria-current="page" href="#">
@@ -54,5 +70,8 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous"></script>
+    <script>
+      feather.replace();
+    </script>
   </body>
 </html>

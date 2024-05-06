@@ -1,4 +1,4 @@
-<?= $this->extend('layout/template_active'); ?>
+<?= $this->extend('admin/template/template'); ?>
 
 <?= $this->section('content'); ?>
 <?= $this->include('admin/template/category'); ?>
@@ -10,7 +10,7 @@
                 </div>
             <?php endif; ?>
             <h1 class="mb-3">Daftar Produk</h1>
-            <a href="/admin/add" class="btn btn-outline-primary mb-3">Tambah Produk</a>
+            <a href="/admin/addProduct" class="btn btn-outline-primary mb-3">Tambah Produk</a>
             <div class="row row-cols-1 row-cols-md-3 g-4">
                 <table class="table">
                     <thead>
@@ -31,8 +31,13 @@
                         <td><?= $product['name']; ?></td>
                         <td><?= $product['quantity']; ?></td>
                         <td>
-                            <a href="/products/update" class="btn btn-success">Update</a>
-                            <a href="/products/delete" class="btn btn-danger">Delete</a>
+                            <a href="/admin/updateProduct/<?= $product['id']; ?>" class="btn btn-success">Update</a>
+                            
+                            <form action="/productDelete/<?= $product['id']; ?>" method="post" class="d-inline">
+                            <?= csrf_field(); ?>
+                                <input type="hidden" name="_method" value="DELETE">
+                                <button type="submit" class="btn btn-danger" onclick="return confirm('Apakah anda yakin?')">Delete</button>
+                            </form>
                         </td>
                         </tr>
                     </tbody>
