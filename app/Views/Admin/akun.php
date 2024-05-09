@@ -9,7 +9,7 @@
                 <h3>Category</h3>
             </li>
             <li class="nav-item">
-                <a class="nav-link active" aria-current="page" href="/admins/password">Ganti Password</a>
+                <a class="nav-link active" aria-current="page" href="/admin/password">Ganti Password</a>
             </li>        
         </ul>
     </div>

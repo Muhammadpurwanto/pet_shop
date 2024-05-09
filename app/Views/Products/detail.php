@@ -10,8 +10,12 @@
                         <p class="card-text"><?= $product['description']; ?></p>
                         <p class="card-text"><small class="text-body-secondary">Stok : <?= $product['quantity']; ?></small></p>
                         <p class="card-text"><small class="text-body-secondary">Harga : <?= $product['price']; ?></small></p>
-                        <button class="btn btn-success">Buy</button>
-                        <button class="btn btn-warning">Card</button>
+                        <div class="text-center">
+                            <button class="btn btn-success mx-2">Buy</button>
+                            <form action="/keranjang/add/<?= $product['id']; ?>" method="post" class="d-inline">
+                                <button class="btn btn-warning mx-2" type="submit">Cart</button>
+                            </form>
+                        </div>
                     </div>
                 </div>
             </div>

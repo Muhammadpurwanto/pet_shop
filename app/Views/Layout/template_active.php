@@ -1,3 +1,4 @@
+<?php use CodeIgniter\Controller; ?>
 <!doctype html>
 <html lang="en">
   <head>
@@ -18,10 +19,10 @@
         
         <?php if(!isset($akun)){ ?>
           <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-            <a class="navbar-brand position-relative me-5" href="/">
+            <a class="navbar-brand position-relative me-5" href="/keranjang">
               <i data-feather="shopping-cart"></i> 
               <span class="position-absolute top-0 start-100 translate-small badge rounded-pill bg-danger">
-                99+
+                <?= Controller::keranjang() ?>
                 <span class="visually-hidden">unread messages</span>
               </span>
             </a>

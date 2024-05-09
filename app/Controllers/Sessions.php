@@ -28,7 +28,7 @@ class Sessions extends BaseController
         
         try {
             $db->table('sessions')->insert($model);
-            setcookie(self::$COOKIE_NAME, $model['id'], time()+(60*60*24),'/');
+            setcookie(self::$COOKIE_NAME, $model['id'], 0,'/');
             // echo "Data berhasil disimpan.";
         } catch (\Exception $e) {
             echo "Gagal menyimpan data: " . $e->getMessage();

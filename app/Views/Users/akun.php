@@ -3,6 +3,11 @@
 <?= $this->section('content'); ?>
 
 <div class="row mt-3"> 
+    <?php if(session()->getFlashdata('pesan')): ?>
+        <div class="alert alert-primary" role="alert">
+            <?= session()->getFlashdata('pesan'); ?>
+        </div>
+    <?php endif; ?>
     <div class="col-2">
         <ul class="nav flex-column">
             <li class="nav-item">
@@ -15,7 +20,7 @@
                 <a class="nav-link active" aria-current="page" href="/users/password">Ganti Password</a>
             </li>        
             <li class="nav-item">
-                <a class="nav-link active" aria-current="page" href="/bank">Daftar Akun Bank</a>
+                <a class="nav-link active" aria-current="page" href="/petPay/add">Akun PetPay</a>
             </li>        
             <li class="nav-item">
                 <a class="nav-link active" aria-current="page" href="/users/password">Top-up</a>

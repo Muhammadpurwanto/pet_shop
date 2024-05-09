@@ -66,15 +66,15 @@ class Users extends BaseController
     }
     public function postLogin()
     {
-        $model = [
+        $dataForm = [
             'email' => $this->request->getPost('email'),
             'password' => $this->request->getPost('password'),
         ];
 
-        $user = $this->userModel->where(['email' => $model['email']])->first();
+        $user = $this->userModel->where(['email' => $dataForm['email']])->first();
         // dd($user);
 
-        if($user != null && password_verify($model['password'], $user['password'])){
+        if($user != null && password_verify($dataForm['password'], $user['password'])){
             $data = [
                 'title' => 'Users|login',
             ];
@@ -147,6 +147,50 @@ class Users extends BaseController
 
         session()->setFlashdata('pesan','Data Berhasil Diupdate.');
         return redirect()->to(base_url('/'));
+    }
+    public function password()
+    {
+        $user = $this->session->currentUser();
+        $data = [
+            'title' => 'Ganti Password',
+            'user' => $user,
+            'akun' => true
+        ];
+        return view('/users/password.php', $data);
+    }
+    public function postPassword()
+    {
+        $user = $this->session->currentUser();
+        $dataForm = [
+            'old_password' => $this->request->getPost('old_password'),
+            'new_password' => $this->request->getPost('new_password'),
+            'konfirmasi_password' => $this->request->getPost('konfirmasi_password'),
+        ];
+        $rules = [
+            'old_password' => 'required',
+            'new_password' => 'required|min_length[8]|max_length[12]',
+            'konfirmasi_password' => 'required',
+        ];
+        
+        if(!$this->validate($rules)){
+            $validation = \Config\Services::validation();
+            $data = [
+                'title' => 'Form Update',
+                'validation' => $validation,
+                'akun' => true,
+                'user' => $user
+            ];
+            return view('/users/password.php', $data);
+        }
+        if(password_verify($dataForm['old_password'], $user['password']) && $dataForm['new_password'] == $dataForm['konfirmasi_password']){
+            $user['password'] = password_hash($this->request->getVar('new_password'), PASSWORD_BCRYPT);
+            $this->userModel->save($user);
+            session()->setFlashdata('pesan','Berhasil Merubah Password');
+            return redirect()->to(base_url("/users/akun"));
+        }else{
+            session()->setFlashdata('pesan', 'Password Is Wrong');
+            return redirect()->to(base_url("/users/password"));
+        }
     }
     public function logout()
     {

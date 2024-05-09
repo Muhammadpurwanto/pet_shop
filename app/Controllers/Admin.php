@@ -172,6 +172,50 @@ class Admin extends BaseController
         session()->setFlashdata('pesan','Data Berhasil Diupdate.');
         return redirect()->to(base_url('/admin'));
     }
+    public function password()
+    {
+        $admin = $this->session->currentAdmin();
+        $data = [
+            'title' => 'Ganti Password',
+            'admin' => $admin,
+            'akun' => true
+        ];
+        return view('/admin/password.php', $data);
+    }
+    public function postPassword()
+    {
+        $admin = $this->session->currentAdmin();
+        $dataForm = [
+            'old_password' => $this->request->getPost('old_password'),
+            'new_password' => $this->request->getPost('new_password'),
+            'konfirmasi_password' => $this->request->getPost('konfirmasi_password'),
+        ];
+        $rules = [
+            'old_password' => 'required',
+            'new_password' => 'required|min_length[8]|max_length[12]',
+            'konfirmasi_password' => 'required',
+        ];
+        
+        if(!$this->validate($rules)){
+            $validation = \Config\Services::validation();
+            $data = [
+                'title' => 'Form Update',
+                'validation' => $validation,
+                'akun' => true,
+                'admin' => $admin
+            ];
+            return view('/admin/password.php', $data);
+        }
+        if(password_verify($dataForm['old_password'], $admin['password']) && $dataForm['new_password'] == $dataForm['konfirmasi_password']){
+            $admin['password'] = password_hash($this->request->getVar('new_password'), PASSWORD_BCRYPT);
+            $this->adminModel->save($admin);
+            session()->setFlashdata('pesan','Berhasil Merubah Password');
+            return redirect()->to(base_url("/admin/akun"));
+        }else{
+            session()->setFlashdata('pesan', 'Password Is Wrong');
+            return redirect()->to(base_url("/admin/password"));
+        }
+    }
     public function logout()
     {
         $this->session->destroy();
@@ -325,4 +369,5 @@ class Admin extends BaseController
         
         
     }
+
 }
