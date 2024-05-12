@@ -23,7 +23,7 @@
                 <a class="nav-link active" aria-current="page" href="/petPay/add">Akun PetPay</a>
             </li>        
             <li class="nav-item">
-                <a class="nav-link active" aria-current="page" href="/users/password">Top-up</a>
+                <a class="nav-link active" aria-current="page" href="/transaksi/history">History</a>
             </li>        
         </ul>
     </div>

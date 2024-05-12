@@ -11,7 +11,7 @@
                         <p class="card-text"><small class="text-body-secondary">Stok : <?= $product['quantity']; ?></small></p>
                         <p class="card-text"><small class="text-body-secondary">Harga : <?= $product['price']; ?></small></p>
                         <div class="text-center">
-                            <button class="btn btn-success mx-2">Buy</button>
+                            <a class="btn btn-success" href="/transaksi/product/<?= $product['id']; ?>">Buy</a>
                             <form action="/keranjang/add/<?= $product['id']; ?>" method="post" class="d-inline">
                                 <button class="btn btn-warning mx-2" type="submit">Cart</button>
                             </form>

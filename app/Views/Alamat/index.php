@@ -13,7 +13,7 @@
         <?php foreach($alamats as $alamat): ?>
             <div class="card text-center col-sm-6 my-3">
                 <div class="card-header">
-                    <?= $alamat['kode_pos']; ?>
+                    Kode Post : <?= $alamat['kode_pos']; ?>
                 </div>
                 <div class="card-body">
                     <h5 class="card-title"><?= $alamat['provinsi']. '/' . $alamat['kabupaten'].' / '.$alamat['kecamatan'].' / '.$alamat['desa']; ?></h5>

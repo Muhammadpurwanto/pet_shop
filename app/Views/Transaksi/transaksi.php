@@ -3,7 +3,7 @@
 <?= $this->section('content'); ?>
 
     <div class="container">
-        <form action="/transaksi/bayarProduct" method="post">
+        <form action="/transaksi/bayar" method="post">
             <div class="row">
                 <div class="col-8">
                 <h3 class="my-3">Transaksi</h3>
@@ -17,24 +17,31 @@
                             <th scope="col">Total</th>
                             </tr>
                         </thead>
+                        <?php $j = 0; ?>
+                        <?php if(isset($keranjang)): ?>
+                            <?php for($i=0; $i<count($keranjang); $i++): ?>
                                 <tbody>
                                     <tr>
-                                        <th scope="row">1</th>
+                                        <th scope="row"><?= ++$j; ?></th>
+                                            <input type="hidden" name="keranjang[]" value="<?= $keranjang[$i]['id']; ?>" id="">
                                         <td>
-                                            <input type="text" name="name" value="<?= isset($product['name']) ? $product['name'] : ''; ?>" style="border:none; width: 10rem;" disabled>
-                                            <input type="hidden" name="product_id" value="<?= isset($product['id']) ? $product['id'] : ''; ?>" style="border:none; width: 10rem;">
+                                            <input type="text" name="name" value="<?= isset($product[$i]['name']) ? $product[$i]['name'] : ''; ?>" style="border:none; width: 10rem;" disabled>
+                                            <input type="hidden" name="product_id[]" value="<?= isset($product[$i]['id']) ? $product[$i]['id'] : ''; ?>" style="border:none; width: 10rem;">
                                         </td>
                                         <td>
-                                            <input type="text" name="price" value="<?= isset($product['price']) ? $product['price'] : ''; ?>" style="border:none; width:10rem" disabled>
+                                            <input type="text" name="price" value="<?= isset($product[$i]['price']) ? $product[$i]['price'] : ''; ?>" style="border:none; width:10rem" disabled>
                                         </td>
                                         <td>
-                                            <input type="text" name="jumlah" value="1" style="border:none; width: 10rem;" disabled>
+                                            <input type="text" name="jumlah" value="<?= isset($keranjang[$i]['jumlah']) ? $keranjang[$i]['jumlah'] : ''; ?>" style="border:none; width: 10rem;" disabled>
                                         </td>
                                         <td>
-                                            <input type="text" name="total" value="<?= isset($product['price']) ? $product['price'] : ''; ?>" style="border:none; width: 10rem" disabled>
+                                            <input type="hidden" name="total[]" value="<?= $total[$i]; ?>" id="">
+                                            <input type="text" name="total[]" value="<?= isset($total[$i]) ? $total[$i] : ''; ?>" style="border:none; width: 10rem" disabled>
                                         </td>
                                     </tr>
                                 </tbody>
+                            <?php endfor; ?>
+                        <?php endif; ?>
                     </table>
                     <div class="text-center">
                         <button class="btn btn-primary" type="submit">Bayar</button>
@@ -61,13 +68,13 @@
                         <div class="card-body">
                             <h5 class="card-title">Saldo :<span class="text-danger"> Rp. <?= isset($petPay['saldo']) ? $petPay['saldo'] : ''; ?></span></h5>
                             <label for="">Total Harga : </label>
-                            <input type="text" name="totalHarga" value="<?= isset($product['price']) ? $product['price'] : ''; ?>" style="border:none; width: 10rem" disabled>
+                            <input type="text" name="totalHarga" value="<?= isset($totalHarga) ? $totalHarga : ''; ?>" style="border:none; width: 10rem" disabled>
                             <label for="">Biaya Kurir : </label>
                             <input type="text" name="kurir" value="<?= isset($kurir['price']) ? $kurir['price'] : ''; ?>" style="border:none; width: 10rem" disabled>
                             <hr>
                             <label for="">Sisa Saldo: </label>
                             <input type="text" name="sisaSaldo" value="<?= isset($sisaSaldo) ? $sisaSaldo : ''; ?>" style="border:none; width: 10rem" disabled>
-                            <input type="hidden" name="sisaSaldo" value="<?= isset($sisaSaldo) ? $sisaSaldo : ''; ?>" style="border:none; width: 10rem">
+                            <input type="text" name="sisaSaldo" value="<?= isset($sisaSaldo) ? $sisaSaldo : ''; ?>" style="border:none; width: 10rem">
                             <hr>
                             
                         </div>

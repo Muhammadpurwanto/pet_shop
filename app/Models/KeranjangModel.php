@@ -8,6 +8,6 @@ class KeranjangModel extends Model
 {
     protected $table = 'keranjang';
     // protected $useTimestamps = true;
-    protected $allowedFields = ['id_user','id_product','jumlah'];
+    protected $allowedFields = ['id_user','id_product','jumlah','total'];
 
 }

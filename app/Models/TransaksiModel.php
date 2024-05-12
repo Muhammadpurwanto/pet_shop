@@ -8,6 +8,6 @@ class TransaksiModel extends Model
 {
     protected $table = 'transaksi';
     protected $useTimestamps = true;
-    protected $allowedFields = ['id_user','id_product','id_petPay','id_jasa_kirim','id_karyawan','id_service','id_keranjang'];
+    protected $allowedFields = ['id','id_user','id_product','id_petPay','id_jasa_kirim','id_karyawan','id_service','id_keranjang','id_product'];
 
 }

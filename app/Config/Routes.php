@@ -37,6 +37,9 @@ $routes->post('/petPay/topUp', 'PetPay::postTopUp');
 
 $routes->post('/keranjang/add/(:any)', 'Keranjang::postAdd/$1');
 
+$routes->post('/transaksi/bayar', 'Transaksi::bayar');
+$routes->get('/transaksi/product/(:any)', 'Transaksi::product/$1');
+// 
 
 // Admin
 $routes->get('/admin/login', 'Admin::login');
