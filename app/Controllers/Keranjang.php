@@ -29,7 +29,7 @@ class Keranjang extends BaseController
     {
         $user = $this->session->currentUser();
         $alamats = $this->alamatModel->where(['id_users' => $user['id']])->findAll();
-        $kurir = $this->jasaKirimModel->findAll();
+        $kurir = $this->jasaKirimModel->where(['category' => 'product'])->findAll();
         $db = \Config\Database::connect();
 
         $builder = $db->table('keranjang');
@@ -55,6 +55,11 @@ class Keranjang extends BaseController
         $user = $this->session->currentUser();
         // dd($user);
         $product = $this->productModel->find($id_product);
+        // dd($product);
+        if($product['quantity'] < 1){
+            session()->setFlashdata('error','Product Habis!!.');
+            return redirect()->to(base_url('/products'));
+        }
         $dataForm = [
             'jumlah' => 1,
             'id_user' => $user['id'],

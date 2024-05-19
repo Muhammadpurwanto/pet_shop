@@ -16,10 +16,14 @@ class Service extends BaseController
         $serviceModel = new ServiceModel();
         $services = $serviceModel->findAll();
         $data = [
-            'title' => 'Home|index',
+            'title' => 'Service',
             'user' => $this->session->currentUser(),
             'services' => $services
         ];
         return view('service/index.php', $data);
+    }
+    public function insert()
+    {
+    
     }
 }

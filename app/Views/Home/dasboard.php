@@ -33,8 +33,8 @@
                 <a href="/products/index" class="btn active">
                     <div class="card-body">
                         <h5 class="card-title">Product</h5>
-                        <h6 class="card-subtitle mb-2 text-body-secondary">Card subtitle</h6>
-                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                        <h6 class="card-subtitle mb-2 text-body-secondary">Klik Here!!</h6>
+                        <p class="card-text">Kami Menyediakan kebutuhan dan perlengkapan hewan peliharaan berkualitas tinggi dan lain-lain.</p>
                     </div>
                 </a>
             </div>
@@ -42,8 +42,8 @@
                 <a href="/service/index" class="btn active">
                     <div class="card-body">
                         <h5 class="card-title">Service</h5>
-                        <h6 class="card-subtitle mb-2 text-body-secondary">Card subtitle</h6>
-                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                        <h6 class="card-subtitle mb-2 text-body-secondary">Klik Here!!</h6>
+                        <p class="card-text">Kami menawarkan layanan grooming profesional, fasilitas pengasuhan yang nyaman dan lain-lain.</p>
                     </div>
                 </a>
             </div>
@@ -51,8 +51,8 @@
                 <a href="/about/index" class="btn active">
                     <div class="card-body">
                         <h5 class="card-title">About Me</h5>
-                        <h6 class="card-subtitle mb-2 text-body-secondary">Card subtitle</h6>
-                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                        <h6 class="card-subtitle mb-2 text-body-secondary">Klik Here!!</h6>
+                        <p class="card-text">Selamat datang di PetShop kami, rumah nyaman bagi teman-teman hewan peliharaan Anda.</p>
                     </div>
                     
                 </a>

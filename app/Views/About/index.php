@@ -1,14 +1,23 @@
 <?= $this->extend('layout/template_active'); ?>
 
 <?= $this->section('content'); ?>
+  <!-- About Section -->
+  <section class="about-section">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-6">
+          <h2 class="text-center my-3">About Us</h2>
+          <p class="lead text-center">Di PetShop, kami memahami betapa pentingnya hewan peliharaan bagi hidup Anda. Kami berkomitmen untuk memberikan layanan terbaik untuk memenuhi kebutuhan dan kebahagiaan peliharaan Anda.</p>
+          <p class="lead text-center">Kami menawarkan layanan grooming profesional, fasilitas pengasuhan yang nyaman, serta berbagai kebutuhan dan perlengkapan hewan peliharaan berkualitas tinggi. Staf kami yang ramah dan berpengetahuan luas tentang hewan siap membantu Anda memberikan perawatan terbaik untuk hewan kesayangan Anda.</p>
+          <p class="lead text-center">Selain itu, kami juga memahami pentingnya makanan dan gizi yang tepat untuk kesehatan hewan peliharaan Anda. Oleh karena itu, kami menyediakan berbagai pilihan makanan dan camilan khusus yang dirancang untuk memenuhi kebutuhan nutrisi hewan kesayangan anda.</p>
+        </div>
+        <div class="col-lg-6 about-img">
+          <img src="/img/1.jpg" class="img-fluid rounded-circle" alt="About Image">
+        </div>
+      </div>
+    </div>
+  </section>
 
-<div class="card mb-3">
-  <img src="/img/3.jpg" class="card-img-top" alt="...">
-  <div class="card-body">
-    <h5 class="card-title">Card title</h5>
-    <p class="card-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptas magnam explicabo quis illo libero laboriosam nesciunt! Nostrum suscipit hic, blanditiis provident saepe consequuntur incidunt soluta nesciunt necessitatibus facere quasi facilis temporibus adipisci eligendi iusto tenetur, laboriosam odio dignissimos qui labore reiciendis. Cumque nobis nisi temporibus repudiandae voluptatibus omnis amet sint enim nam ullam repellat delectus harum voluptatem reiciendis quos, iusto voluptates praesentium officiis, accusantium magnam suscipit. Laudantium dignissimos cumque, nemo rem id harum, doloribus beatae voluptates facilis mollitia placeat? Sunt iusto reiciendis ipsum quidem, est sint placeat sequi enim dolor quae ullam earum aliquid doloribus ratione error laborum consequatur molestiae!</p>
-    <p class="card-text"><small class="text-body-secondary">Last updated 3 mins ago</small></p>
-  </div>
-</div>
+<br><br><br><br><br>
 
 <?= $this->endSection(); ?>

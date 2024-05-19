@@ -3,6 +3,8 @@
 namespace App\Controllers;
 
 use App\Models\AdminModel;
+use App\Models\UsersModel;
+use App\Models\ServiceModel;
 use App\Models\ProductsModel;
 use App\Models\CategoriesModel;
 
@@ -10,13 +12,17 @@ class Admin extends BaseController
 {
     protected AdminModel $adminModel;
     protected Sessions $session;
+    protected UsersModel $usersModel;
     protected ProductsModel $productsModel;
+    protected ServiceModel $serviceModel;
     protected CategoriesModel $categoriesModel;
     public function __construct()
     {
         $this->adminModel = new AdminModel();
         $this->session = new Sessions();
+        $this->usersModel = new UsersModel();
         $this->productsModel = new ProductsModel();
+        $this->serviceModel = new serviceModel();
         $this->categoriesModel = new CategoriesModel();
     }
     public function index(): string
@@ -221,6 +227,17 @@ class Admin extends BaseController
         $this->session->destroy();
         return redirect()->to(base_url("/admin"));
     }
+    public function users()
+    {
+        $users = $this->usersModel->findAll();
+        $admin = $this->session->currentAdmin();
+        $data = [
+            'title' => 'Daftar Produk',
+            'admin' => $admin,
+            'users' => $users
+        ];
+        return view('admin/users.php', $data);
+    }
     public function products()
     {
         $products = $this->productsModel->findAll();
@@ -368,6 +385,164 @@ class Admin extends BaseController
 
         
         
+    }
+    public function service()
+    {
+        $admin = $this->session->currentAdmin();
+        $services = $this->serviceModel->findAll();
+        $data = [
+            'title' => 'Service',
+            'admin' => $this->session->currentAdmin(),
+            'services' => $services
+        ];
+        return view('admin/service.php', $data);
+    }
+    public function addService()
+    {        
+        $categories = $this->categoriesModel->findAll();
+        $admin = $this->session->currentAdmin();
+        // dd($categories);
+        $data = [
+            'title' => 'Form Tambah Service',
+            'categories' => $categories,
+            'admin' => $admin
+        ];
+        return view('admin/addService.php', $data);
+    }
+    public function postAddService()
+    {
+        $db = \Config\Database::connect();
+        $admin = $this->session->currentAdmin();
+        $dataForm = [
+            'id' => strtoupper($this->request->getVar('id')),
+            'name' => $this->request->getVar('name'),
+            'description' => $this->request->getVar('description'),
+            'price' => $this->request->getVar('price'),
+            'image' => $this->request->getFile('image')->getRandomName(),
+        ];
+        $rules = [
+            'id' => 'required|is_unique[products.id]|max_length[8]|min_length[4]',
+            'name' => 'required',
+            'price' => 'integer',
+            'image' => 'max_size[image,3075]|is_image[image]|mime_in[image,image/jpg,image/jpeg,image/png]'
+        ];
+        if(!$this->validate($rules)){
+            $validation = \Config\Services::validation();
+            $data = [
+                'title' => 'Form Tambah Produk',
+                'admin' => $admin,
+                'validation' => $validation,
+                'input_data' => $this->request->getPost()
+            ];
+            return view('/admin/addService', $data);
+        }
+        // Ambil Gambar
+        $fileImage = $this->request->getFile('image');
+        if($fileImage->getError() == 4){
+            $dataForm['image'] = 'defaultProduct.jpeg';
+        }else{
+            $fileImage->move('img',$dataForm['image']);
+        }
+        // $this->productsModel->save($data);
+        $db->table('service')->insert($dataForm);
+
+        session()->setFlashdata('pesan','Data Berhasil Ditambahkan.');
+        return redirect()->to('/admin/service');
+    }
+    public function deleteService($id)
+    {
+        $service = $this->serviceModel->find($id);
+        if($service['image'] != 'defaultProduct.jpeg' && file_exists('img/'.$service['image'])){
+            unlink('img/'.$service['image']);
+        }
+        $this->serviceModel->delete($id);
+        session()->setFlashdata('pesan','Data Berhasil Dihapus.');
+        return redirect()->to('/admin/service');
+    }
+
+    public function updateService($id)
+    {
+        $service = $this->serviceModel->find($id);
+        $admin = $this->session->currentAdmin();
+        $data = [
+            'title' => 'Form Tambah Produk',
+            'admin' => $admin,
+            'service' => $service
+        ];
+        return view('/admin/updateService',$data);
+    }
+    public function postUpdateService($id)
+    {
+        $service = $this->serviceModel->find($id);
+        $admin = $this->session->currentAdmin();
+        $validation = \Config\Services::validation();
+        $dataForm = [
+            'id' => $service['id'],
+            'name' => $this->request->getVar('name'),
+            'description' => $this->request->getVar('description'),
+            'price' => $this->request->getVar('price'),
+            'image' => $this->request->getFile('image')->getRandomName(),
+        ];
+
+        $rules = [
+            'name' => 'required',
+            'price' => 'integer',
+            'image' => 'max_size[image,3075]|is_image[image]|mime_in[image,image/jpg,image/jpeg,image/png]'
+        ];
+
+        if(!$this->validate($rules)){
+            $validation = \Config\Services::validation();
+            $data = [
+                'title' => 'Form Tambah Produk',
+                'admin' => $admin,
+                'validation' => $validation,
+                'service' => $service,
+
+            ];
+            return view('/admin/updateService',$data);
+        }
+        // dd($product['image']);
+        $fileImage = $this->request->getFile('image');
+        if($fileImage->getError() == 4){
+            $dataForm['image'] = $this->request->getVar('old_image');
+        }else{
+            $fileImage->move('img',$dataForm['image']);
+            if(file_exists('img/'. $this->request->getVar('old_image'))){
+                unlink('img/'.$this->request->getVar('old_image'));
+            }
+        }
+        $this->serviceModel->save($dataForm);
+
+        session()->setFlashdata('pesan','Data Berhasil Diupdate.');
+        return redirect()->to(base_url('/admin/service'));
+
+        
+        
+    }
+    public function weeklyReport()
+    {
+        $db = \Config\Database::connect();
+        $admin = $this->session->currentAdmin();
+        // Tanggal awal dan akhir minggu ini
+        $startOfWeek = date('Y-m-d', strtotime('last monday', strtotime('this week')));
+        $endOfWeek   = date('Y-m-d', strtotime('next sunday', strtotime('this week')));
+        $query = $db->table('transaksi')
+                    ->selectCount('id', 'total_sold_products')
+                    ->where('created_at >=', $startOfWeek)
+                    ->where('created_at <=', $endOfWeek)
+                    ->get();
+
+        $result = $query->getRow();
+        $results = $result->total_sold_products;
+        // dd($startOfWeek);
+        // dd($endOfWeek);
+        $data = [
+            'title' => 'Form Tambah Produk',
+            'admin' => $admin,
+            'results' => $results,
+        ];
+
+        return view('/admin/laporanPenjualan', $data);
     }
 
 }

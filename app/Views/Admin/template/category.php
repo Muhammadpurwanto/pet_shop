@@ -5,10 +5,16 @@
                         <h3>Category</h3>
                     </li>
                     <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="/admin/users">Customer</a>
+                    </li>
+                    <li class="nav-item">
                         <a class="nav-link active" aria-current="page" href="/admin/products">Product</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="/products/index">Laporan Penjualan</a>
+                        <a class="nav-link active" aria-current="page" href="/admin/service">Service</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="/admin/weeklyReport">Laporan Penjualan</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link active" aria-current="page" href="/admin/registrasi">Register Admin</a>

@@ -25,6 +25,18 @@
                     </div>              
                 </div>
                 <div class="col">
+                    <div class="card text-bg-primary mb-3" style="max-width: 21rem;">
+                        <div class="card-header"></div>
+                        <div class="card-body">
+                            <h5 class="card-title">Service</h5>
+                            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                            <div class="d-grid gap-2 col-6 mx-auto">
+                                <a href="/admin/service" class="btn btn-danger btn-lg">Go</a>
+                            </div>
+                        </div>
+                    </div>              
+                </div>
+                <div class="col">
                     <div class="card text-bg-success mb-3" style="max-width: 21rem;">
                         <div class="card-header"></div>
                         <div class="card-body">

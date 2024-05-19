@@ -39,6 +39,7 @@ $routes->post('/keranjang/add/(:any)', 'Keranjang::postAdd/$1');
 
 $routes->post('/transaksi/bayar', 'Transaksi::bayar');
 $routes->get('/transaksi/product/(:any)', 'Transaksi::product/$1');
+$routes->get('/transaksi/booking/(:any)', 'Transaksi::booking/$1');
 // 
 
 // Admin
@@ -61,3 +62,11 @@ $routes->get('/admin/updateProduct', 'Admin::updateProduct');
 $routes->post('/admin/updateProduct/(:any)', 'Admin::postUpdateProduct/$1');
 
 $routes->delete('/productDelete/(:any)', 'Admin::deleteProduct/$1');
+
+$routes->get('/admin/addService', 'Admin::addService');
+$routes->post('/admin/addService', 'Admin::postAddService');
+
+$routes->get('/admin/updateService', 'Admin::updateService');
+$routes->post('/admin/updateService/(:any)', 'Admin::postUpdateService/$1');
+
+$routes->delete('/serviceDelete/(:any)', 'Admin::deleteService/$1');

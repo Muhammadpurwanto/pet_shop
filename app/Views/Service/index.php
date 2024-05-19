@@ -13,7 +13,7 @@
                         <div class="card-body text-center">
                             <p class="card-text "><?= $service['description']; ?></p>
                             <h5 class="card-title card-header">Rp. <?= $service['price']; ?></h5>
-                            <a href="" class="btn btn-outline-warning mt-3 mx-auto">Booking</a>
+                            <a href="/transaksi/booking/<?= $service['id']; ?>" class="btn btn-outline-warning mt-3 mx-auto">Booking</a>
                         </div>
                     </div>
             </div>
