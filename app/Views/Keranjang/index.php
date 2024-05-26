@@ -58,7 +58,7 @@
                     <div class="card m-5" style="width: 18rem;">
                         <div class="card-body">
                             <h5 class="card-title">Saldo</h5>
-                            <h6 class="card-subtitle mb-2 text-danger">Rp. <?= isset($products[0]->saldo) ? $products[0]->saldo : ''; ?></h6>
+                            <h6 class="card-subtitle mb-2 text-danger">Rp. <?= isset($petPay['saldo']) ? $petPay['saldo'] : ''; ?></h6>
                             <a class="btn btn-outline-success mt-3" href="/petPay/TopUp" class="card-link">TopUp</a>
                         </div>
                     </div>

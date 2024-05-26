@@ -8,7 +8,7 @@
             <?php foreach($services as $service): ?>
             <div class="col">
                     <div class="card border-warning mb-3" style="max-width: 18rem;">
-                        <img src="/img/<?= $service['image']; ?>" class="card-img-top" alt="...">
+                        <img src="/img/<?= $service['image']; ?>" class="card-img-top" height="300" alt="...">
                     <h5 class="card-title card-header text-center"><?= $service['name']; ?></h5>
                         <div class="card-body text-center">
                             <p class="card-text "><?= $service['description']; ?></p>
@@ -22,5 +22,6 @@
         </div>
     </div>
 
+    <br><br><br><br><br><br><br><br><br><br>
 <?= $this->endSection(); ?>
 

@@ -79,7 +79,7 @@ class Users extends BaseController
                 'title' => 'Users|login',
             ];
 
-            $this->session->create(intval($user['id']));
+            $this->session->createUser(intval($user['id']));
             return redirect()->to(base_url("/"));
         }else{
             $data = [

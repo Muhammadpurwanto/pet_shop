@@ -56,6 +56,16 @@ class Transaksi extends BaseController
         $petPay = $this->petPayModel->where(['id_user' => $user['id']])->first();
         $keranjangs = $this->keranjangModel->where(['id_user' => $user['id']])->findAll();
         $jumlah = $this->request->getVar('jumlah');
+        $alamat = $this->alamatModel->find($this->request->getVar('alamat'));
+
+        // validasi
+        if($petPay == null){
+            session()->setFlashdata('pesan','Daftar Akun Terlebih Dahulu!!');
+            return redirect()->to('/petPay/add');
+        }else if($alamat == null){
+            session()->setFlashdata('pesan','Tambah Alamat Terlebih Dahulu!!');
+            return redirect()->to('/alamat');
+        }
         // update jumlah
         for($i=0; $i<$this->keranjang->countKeranjang();$i++){
             $keranjangs[$i]['jumlah'] = $jumlah[$i];
@@ -79,7 +89,7 @@ class Transaksi extends BaseController
             return redirect()->to(base_url("/keranjang"));
         }
         $sisaSaldo = $petPay['saldo'] - ($totalHarga + $kurir['price']);
-        $alamat = $this->alamatModel->find($this->request->getVar('alamat'));
+        
         
             $data = [
                 'title' => 'Transaksi',
@@ -165,7 +175,16 @@ class Transaksi extends BaseController
         $user = $this->session->currentUser();
         $product = $this->productsModel->find($id);
         $petPay = $this->petPayModel->where(['id_user' => $user['id']])->first();
+        $alamat = $this->alamatModel->where(['id_users' => $user['id']])->first();
 
+        // validasi
+        if($petPay == null){
+            session()->setFlashdata('pesan','Daftar Akun Terlebih Dahulu!!');
+            return redirect()->to('/petPay/add');
+        }else if($alamat == null){
+            session()->setFlashdata('pesan','Tambah Alamat Terlebih Dahulu!!');
+            return redirect()->to('/alamat');
+        }
         // dd($product);
         $kurir = $this->jasaKirimModel->find('JNE');
         if($product['quantity'] < 1){
@@ -177,7 +196,6 @@ class Transaksi extends BaseController
             return redirect()->to(base_url("/product"));
         }
         $sisaSaldo = $petPay['saldo'] - ($product['price'] + $kurir['price']);
-        $alamat = $this->alamatModel->where(['id_users' => $user['id']])->first();
         // dd($alamat);
             $data = [
                 'title' => 'Transaksi',
@@ -289,10 +307,19 @@ class Transaksi extends BaseController
         $jam = $this->request->getPost('jam');
         $id_karyawan = $this->request->getPost('karyawan');
         $karyawan = $this->karyawanModel->where(['id' => $id_karyawan])->first();
-        // dd($transaksi);
+        
+        // validasi
+        if($petPay == null){
+            session()->setFlashdata('pesan','Daftar Akun Terlebih Dahulu!!');
+            return redirect()->to('/petPay/add');
+        }else if($alamat == null){
+            session()->setFlashdata('pesan','Tambah Alamat Terlebih Dahulu!!');
+            return redirect()->to('/alamat');
+        }
+
         if($petPay['saldo'] < $service['price']){
             session()->setFlashdata('error', 'Saldo Anda Tidak Cukup');
-            return redirect()->to(base_url("/product"));
+            return redirect()->to(base_url('/transaksi/booking/'.$service['id']));
         }
         foreach($transaksi as $row){
             if($jam == $row['jam'] && $tanggal == $row['tanggal'] && $karyawan['id'] == $row['id_karyawan']){
@@ -372,16 +399,26 @@ class Transaksi extends BaseController
         $akun = $this->petPayModel->where(['id_user' => $user['id']])->first();
         $transaksi1 = $this->transaksiModel->where(['id_user' => $user['id']])->where(['id_service' => null])->orderBy('created_at','DESC')->limit(10)->findAll();
         $transaksi2 = $this->transaksiModel->where(['id_user' => $user['id']])->where('id_service IS NOT NULL')->orderBy('created_at','DESC')->limit(10)->findAll();
-
-        foreach($transaksi1 as $row1){
-            $detail_transaksi[] = $this->detailTransaksiModel->where(['id_transaksi' => $row1['id']])->findAll();
-            $kurir1[] = $this->jasaKirimModel->find($row1['id_jasa_kirim']);
+        // dd($transaksi1);
+        if($transaksi1 != []){
+            foreach($transaksi1 as $row1){
+                $detail_transaksi[] = $this->detailTransaksiModel->where(['id_transaksi' => $row1['id']])->findAll();
+                $kurir1[] = $this->jasaKirimModel->find($row1['id_jasa_kirim']);
+            }
+        }else{
+            $detail_transaksi = [];
+            $kurir1 = [];
         }
-        foreach($transaksi2 as $row2){
-            $service[] = $this->serviceModel->find($row2['id_service']);
-            $kurir2[] = $this->jasaKirimModel->find($row2['id_jasa_kirim']);
+        if($transaksi2 != []){
+            foreach($transaksi2 as $row2){
+                $service[] = $this->serviceModel->find($row2['id_service']);
+                $kurir2[] = $this->jasaKirimModel->find($row2['id_jasa_kirim']);
+            }
+        }else{
+            $service = [];
+            $kurir2 = [];
         }
-        // dd($kurir);
+        // dd($service);
         // dd($transaksi1);
             $data = [
                 'title' => 'History',

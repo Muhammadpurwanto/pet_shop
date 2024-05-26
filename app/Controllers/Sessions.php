@@ -18,12 +18,29 @@ class Sessions extends BaseController
         $this->usersModel = new UsersModel();
         $this->adminModel = new AdminModel();
     }
-    public function create($userId)
+    public function createUser($userId)
     {
         $db = \Config\Database::connect();
         $model = [
             'id' => uniqid(),
-            'id_users' => $userId
+            'id_user' => $userId
+        ];
+        
+        try {
+            $db->table('sessions')->insert($model);
+            setcookie(self::$COOKIE_NAME, $model['id'], 0,'/');
+            // echo "Data berhasil disimpan.";
+        } catch (\Exception $e) {
+            echo "Gagal menyimpan data: " . $e->getMessage();
+        }
+        
+    }
+    public function createAdmin($adminId)
+    {
+        $db = \Config\Database::connect();
+        $model = [
+            'id' => uniqid(),
+            'id_admin' => $adminId
         ];
         
         try {
@@ -45,10 +62,14 @@ class Sessions extends BaseController
     {
         $id = $_COOKIE[self::$COOKIE_NAME] ?? '';
         $session = $this->sessionsModel->find($id);
+        // dd($session);
         if($session == null){
             return null;
+        }
+        if($session['id_user'] == null){
+            return null;
         }else{
-            return $this->usersModel->find($session['id_users']);
+            return $this->usersModel->find($session['id_user']);
         }
     
     }
@@ -58,8 +79,11 @@ class Sessions extends BaseController
         $session = $this->sessionsModel->find($id);
         if($session == null){
             return null;
+        }
+        if($session['id_admin'] == null){
+            return null;
         }else{
-            return $this->adminModel->find($session['id_users']);
+            return $this->adminModel->find($session['id_admin']);
         }
     
     }

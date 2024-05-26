@@ -4,7 +4,7 @@
   <div id="carouselExampleAutoplaying" class="carousel slide" data-bs-ride="carousel">
         <div class="carousel-inner">
             <div class="carousel-item active">
-                <img src="../img/1.jpg" class="d-block w-100" alt="...">
+                <img src="../img/walpaper1.jpg" class="d-block w-100" alt="...">
                 <div class="carousel-caption d-none d-md-block">
                     <h1 class="mb-5">WELCOME TO OUR WEBSITE</h1>
                     <div class="d-grid gap-2 col-4 mx-auto mb-5">
@@ -14,7 +14,7 @@
                 </div>
             </div>
             <div class="carousel-item active">
-                <img src="../img/2.jpg" class="d-block w-100" alt="...">
+                <img src="../img/walpaper2.jpg" class="d-block w-100" alt="...">
                 <div class="carousel-caption d-none d-md-block">
                     <h1 class="mb-5">WELCOME TO OUR WEBSITE</h1>
                     <div class="d-grid gap-2 col-4 mx-auto mb-5">
@@ -24,7 +24,7 @@
                 </div>
             </div>
             <div class="carousel-item active">
-                <img src="../img/3.jpg" class="d-block w-100" alt="...">
+                <img src="../img/walpaper3.jpg" class="d-block w-100" alt="...">
                 <div class="carousel-caption d-none d-md-block">
                     <h1 class="mb-5">WELCOME TO OUR WEBSITE</h1>
                     <div class="d-grid gap-2 col-4 mx-auto mb-5">

@@ -109,7 +109,7 @@ class Admin extends BaseController
                 'title' => 'Admin|login',
             ];
 
-            $this->session->create(intval($admin['id']));
+            $this->session->createAdmin(intval($admin['id']));
             return redirect()->to(base_url("/admin"));
         }else{
             $data = [

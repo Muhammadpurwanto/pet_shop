@@ -30,20 +30,22 @@ class Keranjang extends BaseController
         $user = $this->session->currentUser();
         $alamats = $this->alamatModel->where(['id_users' => $user['id']])->findAll();
         $kurir = $this->jasaKirimModel->where(['category' => 'product'])->findAll();
+        $petPay = $this->petPayModel->where(['id_user' => $user['id']])->first();
         $db = \Config\Database::connect();
 
         $builder = $db->table('keranjang');
-        $builder->select('products.name as name, products.image as image, products.price as price, keranjang.jumlah as jumlah, keranjang.id as id, petPay.saldo as saldo');
+        $builder->select('products.name as name, products.image as image, products.price as price, keranjang.jumlah as jumlah, keranjang.id as id');
         $builder->join('products', 'keranjang.id_product = products.id');
-        $builder->join('users', 'keranjang.id_user = users.id');
-        $builder->join('petPay', 'users.id = petPay.id_user');
+        $builder->where('keranjang.id_user', $user['id']);
         $query = $builder->get();
 
         $results = $query->getResult();
+        // dd($petPay);
             $data = [
                 'title' => 'Home|dasboard',
                 'user' => $user,
                 'products' => $results,
+                'petPay' => $petPay,
                 'alamats' =>$alamats,
                 'kurirs' => $kurir,
             ];

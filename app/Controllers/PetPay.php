@@ -17,7 +17,7 @@ class PetPay extends BaseController
     {
         $user = $this->session->currentUser();
         $akun = $this->petPayModel->where(['id_user' => $user['id']])->first();
-        // dd($akun['no_rek']);
+        // dd($akun);
             $data = [
                 'title' => 'TopUp',
                 'user' => $user,
@@ -42,7 +42,11 @@ class PetPay extends BaseController
     {
         $user = $this->session->currentUser();
         $akun = $this->petPayModel->where(['id_user' => $user['id']])->first();
-        // dd($akun['no_rek']);
+        if($akun == null){
+            session()->setFlashdata('pesan','Daftar Akun Terlebih Dahulu!!');
+            return redirect()->to(base_url('/petPay/add'));
+        }
+        // dd($akun);
             $data = [
                 'title' => 'TopUp',
                 'user' => $user,

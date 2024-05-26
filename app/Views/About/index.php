@@ -12,7 +12,7 @@
           <p class="lead text-center">Selain itu, kami juga memahami pentingnya makanan dan gizi yang tepat untuk kesehatan hewan peliharaan Anda. Oleh karena itu, kami menyediakan berbagai pilihan makanan dan camilan khusus yang dirancang untuk memenuhi kebutuhan nutrisi hewan kesayangan anda.</p>
         </div>
         <div class="col-lg-6 about-img">
-          <img src="/img/1.jpg" class="img-fluid rounded-circle" alt="About Image">
+          <img src="/img/about.jpg" class="img-fluid rounded-circle" alt="About Image">
         </div>
       </div>
     </div>

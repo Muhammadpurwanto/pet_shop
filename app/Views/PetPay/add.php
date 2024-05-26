@@ -8,7 +8,7 @@
                 <?= session()->getFlashdata('pesan'); ?>
             </div>
         <?php endif; ?>
-        <?php if(isset($akun) && $akun == null){ ?>
+        <?php if($akun == null){ ?>
             <h3 class="my-3">Daftar PetPay</h3>
         <form action="/petPay/add" method="post">
             <ul class="list-group list-group-flush col-sm-8">
